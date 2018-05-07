@@ -1,4 +1,5 @@
 import socket
+from threading import Thread
 
 HOST = ""
 PORT = 5000
@@ -11,12 +12,15 @@ HTTP_RESPONSE = b"""HTTP/1.1 200 OK
 </html>
 """
 
+def handle_request(conn, addr):
+    request = conn.recv(HEADER_SIZE)
+    with conn:
+        conn.sendall(HTTP_RESPONSE)
+
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.bind((HOST, PORT))
     sock.listen(1)
     while True:
         conn, addr = sock.accept()
-        request = conn.recv(HEADER_SIZE)
-        with conn:
-            conn.sendall(HTTP_RESPONSE)
+        Thread(target=handle_request, args=(conn, addr)).start()
