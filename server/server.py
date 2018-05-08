@@ -1,6 +1,7 @@
 import socket
 from threading import Thread
-from .plumbing import Request
+from server import router
+from server.plumbing import Request
 
 
 class Server:
@@ -22,18 +23,5 @@ class Server:
     def handle_request(self, conn, addr):
         request = Request(conn.recv(self.header_size))
         with conn:
-            response = f"""HTTP/1.1 200 OK
-
-<!DOCTYPE html>
-<html>
-  <h1>Your request:</h1>
-  <ul>
-    <li>method: {request.method}</li>
-    <li>uri: {request.uri}</li>
-    <li>http_version: {request.http_version}</li>
-    <li>headers: {request.headers}</li>
-    <li>body: {request.body}</li>
-  </ul>
-</html>
-"""
+            response = router.route(request)
             conn.sendall(response.encode("utf-8"))
