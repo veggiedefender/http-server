@@ -18,9 +18,9 @@ class Server:
             print(f"Listening on http://{socket.getfqdn()}:{self.port}/")
             while True:
                 conn, addr = sock.accept()
-                Thread(target=self.handle_request, args=(conn, addr)).start()
+                Thread(target=self.handle_connection, args=(conn, addr)).start()
 
-    def handle_request(self, conn, addr):
+    def handle_connection(self, conn, addr):
         request = Request(conn.recv(self.header_size))
         with conn:
             response = router.route(request)
