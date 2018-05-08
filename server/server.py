@@ -1,6 +1,6 @@
 import socket
 from threading import Thread
-from plumbing import Request
+from .plumbing import Request
 
 
 class Server:
