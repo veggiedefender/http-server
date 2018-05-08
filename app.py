@@ -22,4 +22,4 @@ def test(request):
     return "test route!"
 
 if __name__ == "__main__":
-    app.start()
+    app.start(host="0.0.0.0", port=3000)
