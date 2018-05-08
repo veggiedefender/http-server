@@ -29,6 +29,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.bind((HOST, PORT))
     sock.listen(1)
+    print(f"Listening on http://{socket.getfqdn()}:{PORT}/")
     while True:
         conn, addr = sock.accept()
         Thread(target=handle_request, args=(conn, addr)).start()
