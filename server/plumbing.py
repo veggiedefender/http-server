@@ -1,3 +1,5 @@
+from .status_codes import status_codes
+
 class Request:
     def __init__(self, request):
         request = request.decode("utf-8")
@@ -24,3 +26,23 @@ class Request:
             key, value = header.split(":", 1)
             headers[key.lower()] = value.lstrip()
         return headers
+
+RESPONSE_TEMPLATE = "HTTP/1.1 {status_code} {status_message}\r\n{headers}\r\n{response}"
+class Response:
+    def __init__(self, headers=None, response="", status_code=200):
+        if headers is None:
+            headers = {}
+
+        self.headers = headers
+        self.response = response
+        self.status_code = status_code
+
+    def serialize(self):
+        header_list = [f"{key.lower()}: {value}" for key, value in self.headers.items()]
+        http_response = RESPONSE_TEMPLATE.format(
+            status_code=self.status_code,
+            status_message=status_codes.get(self.status_code, "???"),
+            headers="\r\n".join(header_list) + "\r\n",
+            response=self.response
+        )
+        return http_response.encode("utf-8")

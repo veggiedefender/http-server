@@ -12,5 +12,4 @@ class Router:
 
     def handle_route(self, request):
         handler = self.routes[(request.method, request.uri)]
-        response = handler(request)
-        return f"HTTP/1.1 200 OK\r\n\r\n{response}"
+        return handler(request)

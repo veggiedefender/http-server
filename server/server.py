@@ -1,7 +1,7 @@
 import socket
 from threading import Thread
 from .router import Router
-from .plumbing import Request
+from .plumbing import Request, Response
 
 
 class Server:
@@ -22,7 +22,8 @@ class Server:
         request = Request(conn.recv(header_size))
         with conn:
             response = self.router.handle_route(request)
-            conn.sendall(response.encode("utf-8"))
+            http_response = Response(response=response)
+            conn.sendall(http_response.serialize())
 
     def route(self, uri, methods=None):
         if methods is None:
