@@ -1,6 +1,6 @@
 import socket
 from threading import Thread
-from . import router
+from .router import Router
 from .plumbing import Request
 
 
@@ -9,6 +9,7 @@ class Server:
         self.port = port
         self.host = host
         self.header_size = header_size
+        self.router = Router()
 
     def start(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -23,5 +24,10 @@ class Server:
     def handle_connection(self, conn, addr):
         request = Request(conn.recv(self.header_size))
         with conn:
-            response = router.route(request)
+            response = self.router.handle_route(request)
             conn.sendall(response.encode("utf-8"))
+
+    def route(self, uri, methods=None):
+        if methods is None:
+            methods = ["GET"]
+        return self.router.route(uri, methods)
