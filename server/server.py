@@ -1,7 +1,7 @@
 import socket
 from threading import Thread
-from server import router
-from server.plumbing import Request
+from . import router
+from .plumbing import Request
 
 
 class Server:
