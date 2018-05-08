@@ -18,10 +18,18 @@ class Request:
 
         header, body = request.split("\r\n\r\n", 1)
         request_line, *header_list = header.split("\r\n")
+        method, uri, http_version = Request.parse_request_line(request_line)
 
-        self.request_line = request_line        
+        self.method = method
+        self.uri = uri
+        self.http_version = http_version
         self.headers = Request.parse_headers(header_list)
         self.body = body
+
+    @staticmethod
+    def parse_request_line(request_line):
+        method, uri, http_version = request_line.split(" ")
+        return method, uri, http_version
 
     @staticmethod
     def parse_headers(header_list):
