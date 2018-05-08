@@ -17,5 +17,9 @@ def index(request):
 </html>
 """
 
+@app.route("/test")
+def test(request):
+    return "test route!"
+
 if __name__ == "__main__":
     app.start()
