@@ -1,3 +1,4 @@
+from datetime import datetime
 from urllib import parse
 from .status_codes import status_codes
 
@@ -11,6 +12,7 @@ class Request:
 
         parsed_uri = parse.urlparse(uri)
 
+        self.datetime = datetime.now()
         self.ip = addr[0]
         self.method = method
         self.uri = uri
