@@ -3,6 +3,8 @@
 A minimal, probably-definitely-not-RFC-compliant HTTP server with an almost
 flask-ish API implemented from scratch using Python sockets and threads
 
+Don't use this for anything serious.
+
 ## Dependencies
 Zero outside of the standard library, of which this project only uses `socket` and `threading`.
 
