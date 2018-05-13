@@ -41,12 +41,10 @@ class Response:
         self.body = body
         self.status_code = status_code
 
+        self._status_message_changed = (status_message is not None)
         if status_message is None:
-            self._status_message_changed = False
-            self._status_message = "???"
-        else:
-            self._status_message_changed = True
-            self._status_message = status_message
+            status_message = "???"
+        self._status_message = status_message
 
     @property
     def status_message(self):
