@@ -33,7 +33,7 @@ class Request:
         return headers
 
 class Response:
-    def __init__(self, headers=None, body="", status_code=200):
+    def __init__(self, headers=None, body="", status_code=None, status_message=None):
         if headers is None:
             headers = {}
 
@@ -41,8 +41,12 @@ class Response:
         self.body = body
         self.status_code = status_code
 
-        self._status_message_changed = False
-        self._status_message = "???"
+        if status_message is None:
+            self._status_message_changed = False
+            self._status_message = "???"
+        else:
+            self._status_message_changed = True
+            self._status_message = status_message
 
     @property
     def status_message(self):
