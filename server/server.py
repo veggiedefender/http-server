@@ -28,4 +28,4 @@ class Server:
     def route(self, uri, methods=None):
         if methods is None:
             methods = ["GET"]
-        return self.router.route(uri, methods)
+        return self.router.add_route(uri, methods)
