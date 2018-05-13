@@ -4,6 +4,8 @@ class Router:
 
     def add_route(self, path, methods):
         def register_route(handler):
+            if path in self.routes:
+                raise Exception(f"Route '{path}' already registered!")
             self.routes[path] = {}
             for method in methods:
                 self.routes[path][method] = handler
