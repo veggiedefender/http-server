@@ -16,7 +16,7 @@ $ python app.py
 ```
 
 ## What do you mean "flask-ish?"
-I tried to implement the more surface-level Flask API features:
+It looks kind of like Flask on the surface (mainly the decorator based routing)
 
 #### Flask:
 ```python
@@ -34,13 +34,12 @@ from server import Server
 app = Server()
 
 @app.route("/")
-def hello():
-    return "Hello World!"
+def hello(request, response):
+    response.body = "Hello World!"
 ```
 
 ## Limitations
 * Does not implement all or most of HTTP
 * Pretty bad at the parts of HTTP it does implement
 * Super brittle, probably
-* Literally the only error handling comes from request threads not killing the main thread
 * See [issues](https://github.com/veggiedefender/http-server/issues)
