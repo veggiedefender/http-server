@@ -33,7 +33,7 @@ class Request:
         return headers
 
 class Response:
-    def __init__(self, headers=None, body="", status_code=None, status_message=None):
+    def __init__(self, headers=None, body="", status_code=200, status_message=None):
         if headers is None:
             headers = {}
 
