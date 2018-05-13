@@ -35,6 +35,16 @@ class Request:
             headers[key.lower()] = value.lstrip()
         return headers
 
+    def __str__(self):
+        template = "{method} {uri} {http_version} from {ip} at {date}"
+        return template.format(
+            method=self.method,
+            uri=self.uri,
+            http_version=self.http_version,
+            ip=self.ip,
+            date=str(self.datetime)
+        )
+
 
 class Response:
     def __init__(self, headers=None, body="", status_code=200, status_message=None):

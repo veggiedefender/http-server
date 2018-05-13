@@ -24,6 +24,7 @@ class Server:
             response = Response()
             try:
                 request = Request(request_bytes, addr)
+                print(request)
                 self.router.handle_route(request, response)
             except Exception:
                 response.status_code = 400
