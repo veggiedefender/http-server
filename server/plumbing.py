@@ -32,7 +32,6 @@ class Request:
             headers[key.lower()] = value.lstrip()
         return headers
 
-RESPONSE_TEMPLATE = "HTTP/1.1 {status_code} {status_message}\r\n{headers}\r\n{body}"
 class Response:
     def __init__(self, headers=None, body="", status_code=200):
         if headers is None:
@@ -57,11 +56,8 @@ class Response:
         self._status_message_changed = True
 
     def serialize(self):
-        header_list = [f"{key.lower()}: {value}" for key, value in self.headers.items()]
-        http_response = RESPONSE_TEMPLATE.format(
-            status_code=self.status_code,
-            status_message=self.status_message,
-            headers="\r\n".join(header_list) + "\r\n",
-            body=self.body
-        )
+        request_line = f"HTTP/1.1 {self.status_code} {self.status_message}"
+        headers = "\r\n".join([f"{key.lower()}: {value}" for key, value in self.headers.items()])
+        header = "\r\n".join([request_line, headers])
+        http_response = "\r\n\r\n".join([header, self.body])
         return http_response.encode("utf-8")
