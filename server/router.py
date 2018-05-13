@@ -20,4 +20,7 @@ class Router:
         if handler is None:
             response.status_code = 405
             return
-        response.body = handler(request)
+        try:
+            response.body = handler(request)
+        except Exception:
+            response.status_code = 500
