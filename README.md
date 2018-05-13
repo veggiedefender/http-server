@@ -5,6 +5,8 @@ flask-ish API implemented from scratch using Python sockets and threads
 
 Don't use this for anything serious.
 
+* There is no live demo because I'm scared to put it online.
+
 ## Dependencies
 Zero outside of the standard library, of which this project only uses `socket` and `threading`.
 
