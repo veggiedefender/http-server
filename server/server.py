@@ -21,9 +21,9 @@ class Server:
     def handle_connection(self, conn, addr, header_size):
         request = Request(conn.recv(header_size))
         with conn:
-            response = self.router.handle_route(request)
-            http_response = Response(response=response)
-            conn.sendall(http_response.serialize())
+            response = Response()
+            self.router.handle_route(request, response)
+            conn.sendall(response.serialize())
 
     def route(self, uri, methods=None):
         if methods is None:

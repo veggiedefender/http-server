@@ -27,14 +27,14 @@ class Request:
             headers[key.lower()] = value.lstrip()
         return headers
 
-RESPONSE_TEMPLATE = "HTTP/1.1 {status_code} {status_message}\r\n{headers}\r\n{response}"
+RESPONSE_TEMPLATE = "HTTP/1.1 {status_code} {status_message}\r\n{headers}\r\n{body}"
 class Response:
-    def __init__(self, headers=None, response="", status_code=200):
+    def __init__(self, headers=None, body="", status_code=200):
         if headers is None:
             headers = {}
 
         self.headers = headers
-        self.response = response
+        self.body = body
         self.status_code = status_code
 
     def serialize(self):
@@ -43,6 +43,6 @@ class Response:
             status_code=self.status_code,
             status_message=status_codes.get(self.status_code, "???"),
             headers="\r\n".join(header_list) + "\r\n",
-            response=self.response
+            body=self.body
         )
         return http_response.encode("utf-8")
