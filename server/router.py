@@ -2,17 +2,17 @@ class Router:
     def __init__(self):
         self.routes = {}
 
-    def add_route(self, uri, methods):
+    def add_route(self, path, methods):
         def register_route(handler):
-            self.routes[uri] = {}
+            self.routes[path] = {}
             for method in methods:
-                self.routes[uri][method] = handler
+                self.routes[path][method] = handler
 
             return handler
         return register_route
 
     def handle_route(self, request, response):
-        route = self.routes.get(request.uri)
+        route = self.routes.get(request.path)
         if route is None:
             response.status_code = 404
             return

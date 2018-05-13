@@ -9,10 +9,11 @@ def index(request, response):
   <h1>Your request:</h1>
   <ul>
     <li>method: {request.method}</li>
-    <li>uri: {request.uri}</li>
+    <li>path: {request.path}</li>
     <li>http_version: {request.http_version}</li>
     <li>headers: {request.headers}</li>
     <li>body: {request.body}</li>
+    <li>queries: {request.queries}</li>
   </ul>
 </html>
 """

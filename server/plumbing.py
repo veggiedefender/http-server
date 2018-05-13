@@ -1,3 +1,4 @@
+from urllib import parse
 from .status_codes import status_codes
 
 class Request:
@@ -8,8 +9,12 @@ class Request:
         request_line, *header_list = header.split("\r\n")
         method, uri, http_version = Request.parse_request_line(request_line)
 
+        parsed_uri = parse.urlparse(uri)
+
         self.method = method
         self.uri = uri
+        self.path = parsed_uri.path
+        self.queries = parse.parse_qs(parsed_uri.query)
         self.http_version = http_version
         self.headers = Request.parse_headers(header_list)
         self.body = body
