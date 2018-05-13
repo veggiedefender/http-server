@@ -23,7 +23,7 @@ def index(request, response):
 """
 
 @app.route("/greet", methods=["POST"])
-def test(request, response):
+def greet(request, response):
     name = parse_qs(request.body)["name"][0]
     response.body = f"""<!DOCTYPE html>
 <html>
