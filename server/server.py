@@ -24,8 +24,8 @@ class Server:
             response = Response()
             try:
                 request = Request(request_bytes, addr)
-                print(request)
                 self.router.handle_route(request, response)
+                print(f"{response.status_code} {request}")
             except Exception:
                 response.status_code = 400
             conn.sendall(response.serialize())
