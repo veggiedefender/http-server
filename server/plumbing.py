@@ -2,7 +2,7 @@ from urllib import parse
 from .status_codes import status_codes
 
 class Request:
-    def __init__(self, request):
+    def __init__(self, request, addr):
         request = request.decode("utf-8")
 
         header, body = request.split("\r\n\r\n", 1)
@@ -11,6 +11,7 @@ class Request:
 
         parsed_uri = parse.urlparse(uri)
 
+        self.ip = addr[0]
         self.method = method
         self.uri = uri
         self.path = parsed_uri.path
@@ -31,6 +32,7 @@ class Request:
             key, value = header.split(":", 1)
             headers[key.lower()] = value.lstrip()
         return headers
+
 
 class Response:
     def __init__(self, headers=None, body="", status_code=200, status_message=None):

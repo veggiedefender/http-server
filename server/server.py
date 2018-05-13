@@ -23,7 +23,7 @@ class Server:
         with conn:
             response = Response()
             try:
-                request = Request(request_bytes)
+                request = Request(request_bytes, addr)
                 self.router.handle_route(request, response)
             except Exception:
                 response.status_code = 400
