@@ -21,6 +21,6 @@ class Router:
             response.status_code = 405
             return
         try:
-            response.body = handler(request)
+            handler(request, response)
         except Exception:
             response.status_code = 500

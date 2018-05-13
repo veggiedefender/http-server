@@ -3,8 +3,8 @@ from server import Server
 app = Server()
 
 @app.route("/")
-def index(request):
-    return f"""<!DOCTYPE html>
+def index(request, response):
+    response.body = f"""<!DOCTYPE html>
 <html>
   <h1>Your request:</h1>
   <ul>
@@ -18,8 +18,8 @@ def index(request):
 """
 
 @app.route("/test")
-def test(request):
-    return "test route!"
+def test(request, response):
+    response.body = "test route!"
 
 if __name__ == "__main__":
     app.start(host="0.0.0.0", port=3000)
