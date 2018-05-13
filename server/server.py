@@ -19,10 +19,14 @@ class Server:
                 Thread(target=self.handle_connection, args=(conn, addr, header_size)).start()
 
     def handle_connection(self, conn, addr, header_size):
-        request = Request(conn.recv(header_size))
+        request_bytes = conn.recv(header_size)
         with conn:
             response = Response()
-            self.router.handle_route(request, response)
+            try:
+                request = Request(request_bytes)
+                self.router.handle_route(request, response)
+            except Exception:
+                response.status_code = 400
             conn.sendall(response.serialize())
 
     def route(self, uri, methods=None):
