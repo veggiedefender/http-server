@@ -42,11 +42,25 @@ class Response:
         self.body = body
         self.status_code = status_code
 
+        self._status_message_changed = False
+        self._status_message = "???"
+
+    @property
+    def status_message(self):
+        if not self._status_message_changed:
+            return status_codes.get(self.status_code, "???")
+        return self._status_message
+
+    @status_message.setter
+    def status_message(self, message):
+        self._status_message = message
+        self._status_message_changed = True
+
     def serialize(self):
         header_list = [f"{key.lower()}: {value}" for key, value in self.headers.items()]
         http_response = RESPONSE_TEMPLATE.format(
             status_code=self.status_code,
-            status_message=status_codes.get(self.status_code, "???"),
+            status_message=self.status_message,
             headers="\r\n".join(header_list) + "\r\n",
             body=self.body
         )
