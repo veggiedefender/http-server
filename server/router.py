@@ -27,6 +27,7 @@ class Router:
         if request.method not in allowed_methods or handler is None:
             response.status_code = 405 # Method Not Allowed
             return
+
         try:
             handler(request, response)
         except Exception:
