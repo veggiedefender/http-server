@@ -1,3 +1,6 @@
+from .constants import methods
+
+
 class Router:
     def __init__(self):
         self.routes = {}
@@ -16,13 +19,13 @@ class Router:
     def handle_route(self, request, response):
         route = self.routes.get(request.path)
         if route is None:
-            response.status_code = 404
+            response.status_code = 404 # Not Found
             return
         handler = route.get(request.method)
-        if handler is None:
-            response.status_code = 405
+        if request.method not in methods or handler is None:
+            response.status_code = 405 # Method Not Allowed
             return
         try:
             handler(request, response)
         except Exception:
-            response.status_code = 500
+            response.status_code = 500 # Internal Server Error

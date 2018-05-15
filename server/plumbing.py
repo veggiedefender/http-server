@@ -1,6 +1,7 @@
 from datetime import datetime
 from urllib import parse
-from .status_codes import status_codes
+from .constants import status_codes
+
 
 class Request:
     def __init__(self, request, addr):
