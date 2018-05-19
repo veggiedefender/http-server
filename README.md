@@ -7,6 +7,13 @@ Don't use this for anything serious.
 
 * There is no live demo because I'm scared to put it online.
 
+# [API Docs](https://github.com/veggiedefender/http-server/blob/master/API.md)
+
+Found here:
+
+https://github.com/veggiedefender/http-server/blob/master/API.md
+
+
 ## Dependencies
 Zero outside of the standard library, of which this project only uses `socket` and `threading`.
 
